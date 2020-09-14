@@ -1,2 +1,2 @@
 # Product_Manager
-MEAR
+MERN
