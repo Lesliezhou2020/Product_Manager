@@ -4,7 +4,7 @@ import ProdoctForm from '../components/ProdoctForm';
 import ProductList from '../components/ProductList';
 import axios from 'axios';
 
-export default() => {
+export default () => {
     const [products, setProducts] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
@@ -21,9 +21,17 @@ export default() => {
         setProducts(products.filter(product => product._id !== productId));
     }
 
+    const createProduct = product => {
+        axios.post('http://localhost:8000/api/products', product)
+            .then(res=>{
+                setProducts([...products, res.data]);
+            })
+
+    }
+
     return(
         <div>
-             <ProdoctForm />
+             <ProdoctForm onSubmitProp={createProduct} initialTitle="" initialPrice="" initialDescription=""/>
              <hr />
              {loaded && <ProductList products={products} removeFromDom={removeFromDom}/>}
 
